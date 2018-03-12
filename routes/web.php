@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Redis;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,3 +30,7 @@ Route::get('/customer/{type}/bonus', 'UserController@bonus');
 //Route::group(['middleware' => 'auth'], function () {
     Route::resource('/promotions', 'PromotionController');
 //});
+
+Route::get('/cache', function () {
+    echo Redis::get('ids');
+});

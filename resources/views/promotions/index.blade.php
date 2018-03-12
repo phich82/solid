@@ -66,6 +66,7 @@
                     type: 'post',
                     data: {_method: 'DELETE', _token: token},
                     success: function (result) {
+                        console.log(result);
                         // remove this row from table
                         $(objThis).closest('tr').remove();
                         // reordering of table

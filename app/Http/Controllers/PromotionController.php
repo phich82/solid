@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use App\Services\PromotionServiceContract;
 
 class PromotionController extends Controller
@@ -95,7 +96,13 @@ class PromotionController extends Controller
      */
     public function destroy($id)
     {
+        $cache = Redis::get('ids');
+        if ($cache == 'null') Redis::set('ids', json_encode([]));
         $this->service->destroy($id);
-        return redirect()->route('promotions.index');
+        $cache = json_decode($cache, true);
+        array_push($cache, $id);
+        Redis::set('ids', json_encode($cache));
+        echo Redis::get('ids');
+        //return redirect()->route('promotions.index');
     }
 }
