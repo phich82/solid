@@ -160,6 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\NotifyServiceProvider::class,
+        Makbulut\Aerospike\AerospikeServiceProvider::class,
 
     ],
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::get('/customer/{type}/bonus', 'UserController@bonus');
     Route::resource('/promotions', 'PromotionController');
 //});
 
-Route::get('/cache', function () {
+Route::get('/cache/redis', function () {
     echo Redis::get('ids');
+});
+
+Route::get('/cache/aerospike', function () {
+    Cache::store('aerospike')->put('aerospike', [1, 10, 100], 1);
+    echo Cache::store('aerospike')->get('aerospike');
 });

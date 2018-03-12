@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6711c85b0940cd3b1f3d5217687c00a",
+    "content-hash": "7ff9d2867bc1977a0e9a04c8b88cde5b",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -737,6 +737,49 @@
                 "storage"
             ],
             "time": "2018-03-01T10:27:04+00:00"
+        },
+        {
+            "name": "makbulut/laravel-aerospike",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/makbulut/laravel-aerospike.git",
+                "reference": "a01d5955572a0b43015fe54ef25c4c89e359d418"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/makbulut/laravel-aerospike/zipball/a01d5955572a0b43015fe54ef25c4c89e359d418",
+                "reference": "a01d5955572a0b43015fe54ef25c4c89e359d418",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Makbulut\\Aerospike\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mehmet Akbulut",
+                    "email": "mehmetakbulut.mail@gmail.com"
+                }
+            ],
+            "description": "Aerospike cache driver for Laravel",
+            "keywords": [
+                "aerospike",
+                "cache",
+                "laravel"
+            ],
+            "time": "2018-02-27T07:58:11+00:00"
         },
         {
             "name": "monolog/monolog",

@@ -97,27 +97,28 @@
             };
 
             Helper.prototype.date_format = function (dateStr, formatStr) {
+                var self = this;
                 //Parameters must be a string
                 if (typeof dateStr !== 'string') return null;
               
                 // format non-empty
                 if (formatStr) if (typeof formatStr !== 'string') return null;
-                else return dateStr;           
+                else formatStr = 'yyyy-mm-dd'; // default       
 
                 //Create data for outputing
-                var data = Helper.getDataFromDateTime(dateStr); 
+                var data = self.getDataFromDateTime(dateStr); 
 
                 //format of datetime wrong        
                 if (!data) return null;    
 
                 //Get the format parts of datetime
-                var formatParts = Helper.getFormatPartsFromFormatStr(formatStr.trim()); 
+                var formatParts = self.getFormatPartsFromFormatStr(formatStr.trim()); 
                 //Check valid for the format parts?
                 if (!formatParts) return null; //invalid formats        
 
                 var out = [];
                 formatParts.forEach(function (formatPart) {
-                    var formatTypesSumbols = Helper.getFormatTypesAndSymbols(formatPart);
+                    var formatTypesSumbols = self.getFormatTypesAndSymbols(formatPart);
                     if (formatTypesSumbols) out.push(formatTypesSumbols);               
                 });
 
@@ -185,7 +186,7 @@
                 var patternTest = /(\s)*[\w+]{1,4}(\s)*(\W+[\w+]{1,4}(\s)*(\W+[\w+]{1,4}(\s)*)?)?/gi;
 
                 //validate format string 
-                if (Helper.validateDateTimeFormatStr(formatStr)) {        
+                if (this.validateDateTimeFormatStr(formatStr)) {        
                     var formatParts = formatStr.match(patternTest);           
                     var out = [];
                     
@@ -209,7 +210,8 @@
             };
             
             Helper.prototype.getFormatTypesAndSymbols = function (formatStr) {
-                if (formatStr && typeof formatStr === 'string'){
+                if (formatStr && typeof formatStr === 'string') {
+                    var self = this;
                     var patternType   = /\w+/gi; //w+ (lower): any words    => extract dd, mm, yyyy
                     var patternSymbol = /\W+/gi; //W+ (upper): no any words => extract symbols
 
@@ -222,7 +224,7 @@
                         //Get types (alphabet)
                         formatTypes.forEach(function (formatType) {
                             //check whether it exists in the allowed array
-                            if (Helper.validateFormatType(formatType.trim())) out.types.push(formatType.trim());
+                            if (self.validateFormatType(formatType.trim())) out.types.push(formatType.trim());
                             else errors.push(formatType.trim());                                           
                         });
                         //Get symbols
@@ -253,29 +255,23 @@
         }());
 
         var AlertMessage = {
-            error: function (message) {
-                return '<div class="alert alert-danger alert-dismissible fade in">' + 
-                       '    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
+            getMessage: function (type, message) {
+                return '<div class=\"alert alert-' + type +' alert-dismissible fade in\">' + 
+                       '    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>' + 
                        '    <strong>Error!</strong> ' + message +  
                        '</div>';
+            },
+            error: function (message) {
+                return this.getMessage('danger', message);
             },
             success: function (message) {
-                return '<div class="alert alert-success alert-dismissible fade in">' + 
-                       '    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
-                       '    <strong>Error!</strong> ' + message +  
-                       '</div>';
+                return this.getMessage('success', message);
             },
             info: function (message) {
-                return '<div class="alert alert-info alert-dismissible fade in">' + 
-                       '    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
-                       '    <strong>Error!</strong> ' + message +  
-                       '</div>';
+                return this.getMessage('info', message)
             },
             warning: function (message) {
-                return '<div class="alert alert-warning alert-dismissible fade in">' + 
-                       '    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
-                       '    <strong>Error!</strong> ' + message +  
-                       '</div>';
+                return this.getMessage('warning', message);
             }
         };
 
