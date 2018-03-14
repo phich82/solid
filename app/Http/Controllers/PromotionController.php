@@ -33,7 +33,6 @@ class PromotionController extends Controller
      */
     public function create()
     {
-        $items = $this->service->paginate();
         return view('promotions.create');
     }
 
